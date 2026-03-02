@@ -11,3 +11,4 @@ export const PIPE_WIDTH = 60;        // Chiều rộng của ống nước
 export const PIPE_GAP = 160;         // Khoảng cách giữa ống trên và ống dưới
 export const GAME_WIDTH = 400;       // Chiều rộng khung game
 export const GAME_HEIGHT = 600;      // Chiều cao khung game
+// Auto-trigger build
