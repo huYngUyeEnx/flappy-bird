@@ -55,11 +55,12 @@ function App() {
   /**
    * Vòng lặp chính của Game (chạy 60 lần/giây)
    */
-  useGameLoop((time) => {
+  useGameLoop((delta) => {
     if (gameStarted && !gameOver) {
-      updateBird();    // Cập nhật vị trí chim
-      updatePipes(time); // Cập nhật vị trí các ống
-      updateBG();      // Cập nhật vị trí nền
+      const time = performance.now();
+      updateBird(delta);    // Cập nhật vị trí chim với delta
+      updatePipes(delta, time); // Cập nhật vị trí các ống với delta và time
+      updateBG(delta);      // Cập nhật vị trí nền với delta
 
       // 1. Kiểm tra va chạm với nền đất (chiều cao 40px)
       if (y + BIRD_SIZE > GAME_HEIGHT - 40) {

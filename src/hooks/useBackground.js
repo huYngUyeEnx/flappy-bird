@@ -12,10 +12,11 @@ const useBackground = () => {
 
     /**
      * Cập nhật vị trí của cả hai lớp nền với tốc độ khác nhau
+     * @param {number} delta: Hệ số thời gian
      */
-    const update = useCallback(() => {
-        setCityOffset((prev) => (prev + BG_SPEED) % GAME_WIDTH);
-        setCloudOffset((prev) => (prev + CLOUD_SPEED) % GAME_WIDTH);
+    const update = useCallback((delta = 1) => {
+        setCityOffset((prev) => (prev + (BG_SPEED * delta)) % GAME_WIDTH);
+        setCloudOffset((prev) => (prev + (CLOUD_SPEED * delta)) % GAME_WIDTH);
     }, []);
 
     /**

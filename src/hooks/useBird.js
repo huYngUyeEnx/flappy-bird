@@ -13,11 +13,12 @@ const useBird = () => {
 
     /**
      * Cập nhật vị trí chim dựa trên vận tốc và áp dụng trọng lực
+     * @param {number} delta - Hệ số thời gian để ổn định tốc độ trên mọi màn hình
      */
-    const update = useCallback(() => {
+    const update = useCallback((delta = 1) => {
         setY((prevY) => {
-            const nextY = prevY + velocityRef.current;
-            velocityRef.current += GRAVITY; // Tốc độ rơi tăng dần theo trọng lực
+            const nextY = prevY + velocityRef.current * delta;
+            velocityRef.current += GRAVITY * delta; // Tốc độ rơi tăng dần theo trọng lực
             return nextY;
         });
     }, []);

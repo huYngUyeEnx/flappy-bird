@@ -13,9 +13,10 @@ const usePipes = () => {
 
     /**
      * Cập nhật logic ống nước: di chuyển sang trái và tạo ống mới
+     * @param {number} delta: Hệ số thời gian
      * @param {number} time: Thời gian từ requestAnimationFrame
      */
-    const update = useCallback((time) => {
+    const update = useCallback((delta = 1, time = 0) => {
         setPipes((prevPipes) => {
             let newPipes = prevPipes;
 
@@ -31,10 +32,9 @@ const usePipes = () => {
                 lastSpawnTime.current = time;
             }
 
-            // 2. Di chuyển tất cả ống sang trái dựa trên PIPE_SPEED 
-            // và lọc bỏ những ống đã trôi ra khỏi màn hình bên trái
+            // 2. Di chuyển tất cả ống sang trái dựa trên PIPE_SPEED * delta
             return newPipes
-                .map((pipe) => ({ ...pipe, x: pipe.x - PIPE_SPEED }))
+                .map((pipe) => ({ ...pipe, x: pipe.x - (PIPE_SPEED * delta) }))
                 .filter((pipe) => pipe.x > -100);
         });
     }, []);

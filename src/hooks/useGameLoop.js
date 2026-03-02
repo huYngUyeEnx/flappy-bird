@@ -16,9 +16,18 @@ const useGameLoop = (callback, isRunning) => {
             return;
         }
 
+        let lastTime = performance.now();
+
         const animate = (time) => {
+            // Tính toán Delta Time dựa trên mục tiêu 60FPS
+            // Nếu là 60fps, deltaTime ~ 1.0
+            // Nếu là 120fps, deltaTime ~ 0.5
+            const deltaTime = (time - lastTime) / (1000 / 60);
+            lastTime = time;
+
             if (callbackRef.current) {
-                callbackRef.current(time);
+                // Chỉ chạy callback nếu deltaTime hợp lệ (tránh nhảy vọt khi quay lại tab)
+                callbackRef.current(Math.min(deltaTime, 3.0));
             }
             requestRef.current = requestAnimationFrame(animate);
         };
