@@ -16,9 +16,9 @@ const useGameLoop = (callback, isRunning) => {
             return;
         }
 
-        const animate = () => {
+        const animate = (time) => {
             if (callbackRef.current) {
-                callbackRef.current();
+                callbackRef.current(time);
             }
             requestRef.current = requestAnimationFrame(animate);
         };
